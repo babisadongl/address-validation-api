@@ -1,4 +1,4 @@
-# Holista Member Service
+# Address Validation Service
 
 ## Setup
 
@@ -10,7 +10,7 @@
 
   ```bash
   git clone  git@github.com:babisadongl/address-validation-api.git
-  cd holista-member-service
+  cd address-validation-service
   cp .env.example .env
   ```
 
