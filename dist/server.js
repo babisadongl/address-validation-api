@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 const express_graphql_1 = require("express-graphql");
 const cors_1 = __importDefault(require("cors"));
 const schema_1 = require("./schema");
+const config_ts_1 = __importDefault(require("./config.ts"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use('/graphql', (0, express_graphql_1.graphqlHTTP)({
@@ -14,7 +15,6 @@ app.use('/graphql', (0, express_graphql_1.graphqlHTTP)({
     rootValue: schema_1.root,
     graphiql: true, // Enable GraphiQL for testing
 }));
-const PORT = 4000;
-app.listen(PORT, () => {
-    console.log(`GraphQL proxy server running on http://localhost:${PORT}/graphql`);
+app.listen(config_ts_1.default.PORT, () => {
+    console.log(`GraphQL proxy server running on http://localhost:${config_ts_1.default.PORT}/graphql`);
 });

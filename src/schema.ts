@@ -1,6 +1,7 @@
 import { buildSchema } from 'graphql';
 import axios from 'axios';
 import { GraphQLJSON } from 'graphql-type-json';
+import config from './config.ts'
 
 export const schema = buildSchema(`
   scalar JSON
@@ -26,10 +27,10 @@ export const root = {
     state: string;
   }) => {
     try {
-        const response = await axios.get(`https://gavg8gilmf.execute-api.ap-southeast-2.amazonaws.com/staging/postcode/search.json`, {
+        const response = await axios.get(config.LOCATION_API, {
         params: { q: postcode || suburb, state: state },
         headers: {
-          Authorization: `Bearer 7710a8c5-ccd1-160f-70cf03e8-b2bbaf01`,
+          Authorization: config.AUTH_TOKEN,
         },
       });
       if(response.data) {

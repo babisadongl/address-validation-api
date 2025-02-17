@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.root = exports.schema = void 0;
 const graphql_1 = require("graphql");
 const axios_1 = __importDefault(require("axios"));
-// Define the GraphQL schema
+const config_ts_1 = __importDefault(require("./config.ts"));
 exports.schema = (0, graphql_1.buildSchema)(`
   scalar JSON
 
@@ -28,16 +28,13 @@ exports.schema = (0, graphql_1.buildSchema)(`
     validateAddress(postcode: String, suburb: String, state: String): ValidationResult
   }
 `);
-// Define resolvers
 exports.root = {
     validateAddress: (_a) => __awaiter(void 0, [_a], void 0, function* ({ postcode, suburb, state, }) {
         try {
-            console.log('Triggered!!');
-            // const response = await axios.get(`https://gavg8gilmf.execute-api.ap-southeast-2.amazonaws.com/staging/postcode/search.json?q=2000&state=VIC`, {
-            const response = yield axios_1.default.get(`https://gavg8gilmf.execute-api.ap-southeast-2.amazonaws.com/staging/postcode/search.json`, {
+            const response = yield axios_1.default.get(config_ts_1.default.LOCATION_API, {
                 params: { q: postcode || suburb, state: state },
                 headers: {
-                    Authorization: `Bearer 7710a8c5-ccd1-160f-70cf03e8-b2bbaf01`,
+                    Authorization: config_ts_1.default.AUTH_TOKEN,
                 },
             });
             if (response.data) {
